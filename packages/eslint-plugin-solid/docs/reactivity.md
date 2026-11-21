@@ -1603,6 +1603,46 @@ const scaled = createMemo(() => {
   return items.map(scale);
 });
 
+import { createSignal } from "solid-js";
+function Comp() {
+  const [items] = createSignal(new Map());
+  function handleSave() {
+    const snapshot = items();
+    function look(id) {
+      return snapshot.get(id) || id;
+    }
+    console.log(look("a"));
+  }
+  return <button onClick={handleSave}>x</button>;
+}
+
+import { createSignal } from "solid-js";
+function Comp() {
+  const [items] = createSignal(new Map());
+  function handleSave() {
+    const snapshot = items();
+    function look(id) {
+      return snapshot.get(id) || id;
+    }
+    console.log(["a"].map(look));
+  }
+  return <button onClick={handleSave}>x</button>;
+}
+
+import { createSignal } from "solid-js";
+function Comp() {
+  const [items] = createSignal([]);
+  function handleSave() {
+    const snapshot = items();
+    function look(id) {
+      console.log(snapshot);
+      return id;
+    }
+    look("a");
+  }
+  return <button onClick={handleSave}>x</button>;
+}
+
 ```
 <!-- end-doc-gen -->
 

@@ -612,7 +612,9 @@ export default createRule<Options, MessageIds>({
           ? closure.parent
           : null;
       if (!declaration) return false;
-      const variables = sourceCode.scopeManager?.getDeclaredVariables(declaration) ?? [];
+      const variables = (sourceCode.scopeManager?.getDeclaredVariables(declaration) ?? []).filter(
+        (variable) => variable.defs.some((def) => def.type !== "Parameter")
+      );
       return variables.some((variable) =>
         variable.references.some(
           (reference) => !reference.init && isReferenceReturned(reference.identifier, boundary)
